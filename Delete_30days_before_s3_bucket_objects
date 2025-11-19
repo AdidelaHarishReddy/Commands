@@ -1,0 +1,5 @@
+aws s3api list-objects-v2 \
+  --bucket my-bucket-name \
+  --query "Contents[?LastModified<='`date -d '30 days ago' -Iseconds`'].Key" \
+  --output text \
+| xargs -I {} aws s3 rm s3://my-bucket-name/{}
